@@ -1,7 +1,8 @@
 
 export function createCharacterCard() {
     const newListElement = document.createElement("li");
-    newListElement.innerHTML = `<li class="card">
+    newListElement.classList.add("card");
+    newListElement.innerHTML = `
           <div class="card__image-container">
             <img
               class="card__image"
@@ -21,7 +22,7 @@ export function createCharacterCard() {
               <dd class="card__info-description">51</dd>
             </dl>
           </div>
-        </li> `
+         `
 
         return newListElement;
     
