@@ -1,3 +1,5 @@
+import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js";
+
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
     '[data-js="search-bar-container"]',
@@ -36,9 +38,14 @@ const apiFetchResult = fetchCharacters()
     .then((characters) => console.log(characters.results))
     .catch((error) => console.error(error));
 
-// Aufruf der Funktion
-// const apiFetchResult = fetchCharacters(
-//     "https://rickandmortyapi.com/api/character",
-// )
-//     .then((data) => console.log(data))
-//     .catch((error) => console.log("Etwas ist schiefgelaufen:", error));
+
+// Mock data for testing the createCharacterCard function
+const newCharacterCard = createCharacterCard(
+    "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+    "Morty Smith",
+    "Alive",
+    "",
+    51,
+);
+
+cardContainer.append(newCharacterCard);
