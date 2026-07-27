@@ -1,5 +1,5 @@
 import { createCharacterCard } from "../components/CharacterCard/CharacterCard.js";
-import { createNavigation } from "./components/NavPagination/NavPagination.js";
+import { createNavigation } from "../components/NavPagination/NavPagination.js";
 import { createSearchBar } from "../components/SearchBar/SearchBar.js";
 
 const cardContainer = document.querySelector(
@@ -13,7 +13,6 @@ const searchBarContainer = document.querySelector(
 const navigationContainer = document.querySelector(
   '[data-js="navigation"]'
 );
-
 
 console.log(cardContainer);
 console.log(searchBarContainer);
@@ -48,6 +47,7 @@ async function fetchCharacters() {
 
     // create character cards
     data.results.forEach((character) => {
+      //  cardContainer.innerHTML = "";
       cardContainer.append(createCharacterCard(character));
     });
 

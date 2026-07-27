@@ -1,7 +1,27 @@
 
+// export function createNavButton(label, onClick, dataJs, className) {
+//   const button = document.createElement("button");
+
+//   button.textContent = label;
+
+//   button.dataset.js = dataJs;
+
+//   button.classList.add("button", className);
+
+//   button.addEventListener("click", () => {
+//     onClick();
+//   });
+
+//   return button;
+// }
+
+
+
+
 // CREATE BUTTON click
 export function createNavButton(label, onClick) {
   const button = document.createElement("button");
+
 
   button.textContent = label;
 
