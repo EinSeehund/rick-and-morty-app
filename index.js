@@ -2,7 +2,7 @@ import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
-    '[data-js="search-bar-container"]',
+  '[data-js="search-bar-container"]',
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
@@ -46,9 +46,9 @@ async function fetchCharacters() {
             `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
         );
 
-        if (!response.ok) {
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        }
+    if (!response.ok) {
+      throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+    }
 
         const data = await response.json();
         maxPage = data.info.pages;
@@ -59,11 +59,11 @@ async function fetchCharacters() {
             cardContainer.append(createCharacterCard(character));
         });
 
-        //return data;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Daten:", error);
-        throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
-    }
+    //return data;
+  } catch (error) {
+    console.error("Fehler beim Abrufen der Daten:", error);
+    throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
+  }
 }
 
 fetchCharacters();
