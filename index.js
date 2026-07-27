@@ -26,7 +26,11 @@ async function fetchCharacters() {
     }
 
     const characterData = await charactersAPI.json();
-    console.log(characterData);
+    cardContainer.innerHTML = "";
+    characterData.results.forEach(character => {
+      cardContainer.append(createCharacterCard(character));
+      
+    });
     return characterData;
   } catch (error) {
     return { error: error.message };
@@ -35,4 +39,4 @@ async function fetchCharacters() {
 
 fetchCharacters();
 
-cardContainer.append(createCharacterCard());
+
