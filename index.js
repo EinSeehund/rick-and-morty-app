@@ -27,7 +27,22 @@ async function fetchCharacters() {
         }
 
         const data = await response.json();
-        return data;
+        const characterArray = data.results;
+        console.log(characterArray);
+        cardContainer.innerHTML = "";
+        characterArray.forEach((character) => {
+            cardContainer.append(
+                createCharacterCard(
+                    character.image,
+                    character.name,
+                    character.status,
+                    character.type,
+                    character.episode.length,
+                ),
+            );
+        });
+
+        //return data;
     } catch (error) {
         console.error("Fehler beim Abrufen der Daten:", error);
         throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
