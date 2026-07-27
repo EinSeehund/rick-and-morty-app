@@ -32,13 +32,7 @@ async function fetchCharacters() {
         cardContainer.innerHTML = "";
         characterArray.forEach((character) => {
             cardContainer.append(
-                createCharacterCard(
-                    character.image,
-                    character.name,
-                    character.status,
-                    character.type,
-                    character.episode.length,
-                ),
+                createCharacterCard(character)
             );
         });
 
@@ -51,4 +45,4 @@ async function fetchCharacters() {
 
 fetchCharacters();
 
-cardContainer.append(createCharacterCard());
+
