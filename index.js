@@ -1,3 +1,6 @@
+import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js";
+
+
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
@@ -13,6 +16,8 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
+
+// API FETCH
 async function fetchCharacters() {
   const response = await fetch("https://swapi.tech/api/people");
   const data = await response.json();
@@ -21,3 +26,7 @@ async function fetchCharacters() {
 }
 
 fetchCharacters();
+
+// CREATE CARD
+const characterCard = createCharacterCard();
+cardContainer.append(characterCard);
