@@ -2,31 +2,30 @@
 // export function createCharacterCard() {
 //   const liElement = document.createElement("li");
 
-//   liElement.innerHTML = `
-//     <article class="card">
-//       <h2>Rick Sanchez</h2>
-//       <p>Status: Alive</p>
-//       <p>Species: Human</p>
-//       <p>Gender: Male</p>
-//     </article>
-//   `;
+export function createCharacterCard() {
+    const newListElement = document.createElement("li");
+    newListElement.classList.add("card");
+    newListElement.innerHTML = `
+          <div class="card__image-container">
+            <img
+              class="card__image"
+              src="${characterData.image}"
+              alt="${characterData.name}"
+            />
+            <div class="card__image-gradient"></div>
+          </div>
+          <div class="card__content">
+            <h2 class="card__title">${characterData.name}</h2>
+            <dl class="card__info">
+              <dt class="card__info-title">Status</dt>
+              <dd class="card__info-description">${characterData.status}</dd>
+              <dt class="card__info-title">Type</dt>
+              <dd class="card__info-description">${characterData.type}</dd>
+              <dt class="card__info-title">Occurencies</dt>
+              <dd class="card__info-description">${characterData.episode.length}</dd>
+            </dl>
+          </div>
+         `
 
-//   return liElement;
-// }
-
-// 03 DYNAMIC
-export function createCharacterCard(character) {
-  const liElement = document.createElement("li");
-
-  liElement.innerHTML = `
-    <article class="card">
-      <img src="${character.image}" alt="${character.name}" />
-      <h2>${character.name}</h2>
-      <p>Status: ${character.status}</p>
-      <p>Type: ${character.type}</p>
-      <p>Occurrences: ${character.episode.length}</p>
-    </article>
-  `;
-
-  return liElement;
+  return newListElement;
 }
