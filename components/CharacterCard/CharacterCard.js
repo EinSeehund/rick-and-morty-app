@@ -1,3 +1,6 @@
+// 02 FIRST FUNCTION
+// export function createCharacterCard() {
+//   const liElement = document.createElement("li");
 
 export function createCharacterCard() {
     const newListElement = document.createElement("li");
