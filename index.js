@@ -1,6 +1,8 @@
+import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js";
+
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
-  '[data-js="search-bar-container"]'
+    '[data-js="search-bar-container"]',
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
@@ -13,11 +15,25 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
+// API fetch call
 async function fetchCharacters() {
-  const response = await fetch("https://swapi.tech/api/people");
-  const data = await response.json();
+    try {
+        const response = await fetch(
+            "https://rickandmortyapi.com/api/character",
+        );
 
-  console.log(data);
+        if (!response.ok) {
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error("Fehler beim Abrufen der Daten:", error);
+        throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
+    }
 }
 
 fetchCharacters();
+
+cardContainer.append(createCharacterCard());
