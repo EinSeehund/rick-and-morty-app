@@ -12,3 +12,12 @@ const pagination = document.querySelector('[data-js="pagination"]');
 const maxPage = 1;
 const page = 1;
 const searchQuery = "";
+
+async function fetchCharacters() {
+  const response = await fetch("https://swapi.tech/api/people");
+  const data = await response.json();
+
+  console.log(data);
+}
+
+fetchCharacters();
