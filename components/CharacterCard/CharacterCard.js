@@ -2,7 +2,7 @@
 // export function createCharacterCard() {
 //   const liElement = document.createElement("li");
 
-export function createCharacterCard() {
+export function createCharacterCard(characterData) {
     const newListElement = document.createElement("li");
     newListElement.classList.add("card");
     newListElement.innerHTML = `
@@ -25,7 +25,7 @@ export function createCharacterCard() {
               <dd class="card__info-description">${characterData.episode.length}</dd>
             </dl>
           </div>
-         `
+         `;
 
-  return newListElement;
+    return newListElement;
 }
