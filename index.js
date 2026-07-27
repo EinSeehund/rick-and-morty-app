@@ -1,71 +1,115 @@
-import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js";
-import { createPagination } from "./components/NavPagination/NavPagination.js";
+import { createCharacterCard } from "../components/CharacterCard/CharacterCard.js";
+import { createNavigation } from "./components/NavPagination/NavPagination.js";
+import { createSearchBar } from "../components/SearchBar/SearchBar.js";
 
-const cardContainer = document.querySelector('[data-js="card-container"]');
-const searchBarContainer = document.querySelector(
-    '[data-js="search-bar-container"]',
+const cardContainer = document.querySelector(
+  '[data-js="card-container"]'
 );
-const searchBar = document.querySelector('[data-js="search-bar"]');
-const navigation = document.querySelector('[data-js="navigation"]');
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
-const pagination = document.querySelector('[data-js="pagination"]');
 
-// States
+const searchBarContainer = document.querySelector(
+  '[data-js="search-bar-container"]'
+);
+
+const navigationContainer = document.querySelector(
+  '[data-js="navigation"]'
+);
+
+
+console.log(cardContainer);
+console.log(searchBarContainer);
+console.log(navigationContainer);
+
+// State
 let maxPage = 1;
 let page = 1;
 let searchQuery = "";
 
-prevButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (page > 1) {
-        page--;
-        fetchCharacters();
-    }
-});
-
-nextButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (page < maxPage) {
-        page++;
-        fetchCharacters();
-    }
-});
-
-searchBar.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(searchBar);
-    searchQuery = data.get("query");
-    page = 1;
-    fetchCharacters();
-});
-
-// API fetch call
+// -----------------------------
+// FETCH CHARACTERS
+// -----------------------------
 async function fetchCharacters() {
-    try {
-        const response = await fetch(
-            `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
-        );
+  try {
+    const response = await fetch(
+      `https://rickandmortyapi.com/api/character?name=${searchQuery}&page=${page}`
+    );
 
-        if (!response.ok) {
-            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        maxPage = data.info.pages;
-        const characterArray = data.results;
-        cardContainer.innerHTML = "";
-        characterArray.forEach((character) => {
-            cardContainer.append(createCharacterCard(character));
-        });
-
-        pagination.textContent = `${page} / ${maxPage}`;
-
-        //return data;
-    } catch (error) {
-        console.error("Fehler beim Abrufen der Daten:", error);
-        throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
+    if (!response.ok) {
+      throw new Error("Character not found");
     }
+
+    const data = await response.json();
+    console.log("API DATA:", data);
+
+    // update max pages
+    maxPage = data.info.pages;
+
+    // clear old cards
+    cardContainer.innerHTML = "";
+
+    // create character cards
+    data.results.forEach((character) => {
+      cardContainer.append(createCharacterCard(character));
+    });
+
+    // update pagination
+    pagination.textContent = `${page} / ${maxPage}`;
+
+  } catch (error) {
+    console.error(error);
+
+    cardContainer.innerHTML = `
+      <li class="card">
+        <p>No characters found</p>
+      </li>
+    `;
+  }
 }
 
+
+// -----------------------------
+// SEARCH BAR COMPONENT
+// -----------------------------
+const searchBar = createSearchBar({
+  onSubmit: (query) => {
+    searchQuery = query;
+    page = 1;
+
+    fetchCharacters();
+  },
+});
+
+searchBarContainer.append(searchBar);
+
+
+// -----------------------------
+// NAVIGATION COMPONENT
+// -----------------------------
+const navigation = createNavigation({
+  onPrev: () => {
+    if (page > 1) {
+      page--;
+      fetchCharacters();
+    }
+  },
+
+  onNext: () => {
+    if (page < maxPage) {
+      page++;
+      fetchCharacters();
+    }
+  },
+});
+
+navigationContainer.append(navigation);
+
+
+// -----------------------------
+// PAGINATION DISPLAY
+// -----------------------------
+const pagination = document.querySelector('[data-js="pagination"]');
+
+
+// -----------------------------
+// INITIAL LOAD
+// -----------------------------
 fetchCharacters();
