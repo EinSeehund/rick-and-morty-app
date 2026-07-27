@@ -3,7 +3,7 @@ import { createPagination } from "./components/NavPagination/NavPagination.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
-  '[data-js="search-bar-container"]',
+    '[data-js="search-bar-container"]',
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
@@ -24,9 +24,10 @@ prevButton.addEventListener("click", (event) => {
     }
 });
 
-prevButton.addEventListener("click", () => {
-    if (page > 1) {
-        page--;
+nextButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    if (page < maxPage) {
+        page++;
         fetchCharacters();
     }
 });
@@ -46,9 +47,9 @@ async function fetchCharacters() {
             `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
         );
 
-    if (!response.ok) {
-      throw new Error(`HTTP-Fehler! Status: ${response.status}`);
-    }
+        if (!response.ok) {
+            throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+        }
 
         const data = await response.json();
         maxPage = data.info.pages;
