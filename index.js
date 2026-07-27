@@ -9,10 +9,10 @@ const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 
-// States
-const maxPage = 1;
-const page = 1;
-const searchQuery = "";
+// States // REPLACE CONST WITH LET //
+let maxPage = 1;
+let page = 1;
+let searchQuery = "";
 
 // API fetch call
 async function fetchCharacters() {
@@ -26,16 +26,24 @@ async function fetchCharacters() {
         }
 
         const data = await response.json();
+        console.log(data);
+
         const characterArray = data.results;
         console.log(characterArray);
         console.log(data.info.pages);
 
+        maxPage = data.info.pages;
+
         cardContainer.innerHTML = "";
-        characterArray.forEach((character) => {
+        
+        data.results.forEach((character) => {
+  
             cardContainer.append(
                 createCharacterCard(character)
             );
         });
+
+        pagination.textContent = `${page} / ${maxPage}`;
 
         //return data;
     } catch (error) {
