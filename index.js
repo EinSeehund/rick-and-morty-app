@@ -22,11 +22,19 @@ async function fetchCharacters() {
   const response = await fetch("https://swapi.tech/api/people");
   const data = await response.json();
 
+  cardContainer.innerHTML = "";
+
+  data.results.forEach((character) => {
+    const characterCard = createCharacterCard(character);
+    cardContainer.append(characterCard);
+  });
+
   console.log(data);
 }
 
 fetchCharacters();
 
-// CREATE CARD
-const characterCard = createCharacterCard();
-cardContainer.append(characterCard);
+// 02 CREATE CARD
+// const characterCard = createCharacterCard();
+// cardContainer.append(characterCard);
+
