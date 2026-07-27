@@ -51,17 +51,4 @@ async function fetchCharacters() {
 
 fetchCharacters();
 
-// const apiFetchResult = fetchCharacters()
-//     .then((characters) => console.log(characters.results))
-//     .catch((error) => console.error(error));
-
-// Mock data for testing the createCharacterCard function
-// const newCharacterCard = createCharacterCard(
-//     "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-//     "Morty Smith",
-//     "Alive",
-//     "",
-//     51,
-// );
-
-// cardContainer.append(newCharacterCard);
+cardContainer.append(createCharacterCard());
