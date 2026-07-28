@@ -3,30 +3,61 @@
 @import "components/NavButton/NavButton.css";
 @import "components/NavPagination/NavPagination.css";
 
+@font-face {
+    font-family: SchwiftyFont; /* set name */
+    src: url("/assets/get_schwifty.ttf"); /* url of the font */
+}
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-  --color-primary: rgb(51, 51, 51);
-  --color-secondary: #f6f6f6;
-  --font-family: system-ui;
+    --color-primary: #44281d;
+    --color-secondary: #f6f6f6;
+    --font-family: system-ui;
+    --font-headline: SchwiftyFont;
 }
 
 body {
-  font-family: var(--font-family);
-  color: var(--color-primary);
-  padding: 20px;
+    font-family: var(--font-family);
+    color: var(--color-primary);
+    padding: 20px;
+    background-color: #f0e14a;
+    text-align: center;
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+h1 {
+    font-family: var(--font-headline);
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
 .title {
-  padding: 10px 0;
+    padding: 10px 0;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media screen and (min-width: 1000px) {
+    .card-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
 }
