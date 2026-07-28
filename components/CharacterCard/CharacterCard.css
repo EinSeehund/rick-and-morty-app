@@ -3,7 +3,7 @@
 }
 .card {
   width: 300px;
-  background-color: var(--color-secondary);
+  background-color: #1A1B2E;
 }
 
 .card__info {
