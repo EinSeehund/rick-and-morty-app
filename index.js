@@ -54,7 +54,8 @@ async function fetchCharacters() {
     // update pagination
     pagination.textContent = `${page} / ${maxPage}`;
 
-  } catch (error) {
+  }  // error
+  catch (error) {
     console.error(error);
 
     cardContainer.innerHTML = `
