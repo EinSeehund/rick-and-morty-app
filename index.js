@@ -10,15 +10,10 @@ const searchBarContainer = document.querySelector(
 
 searchBarContainer.append(SearchBar(handleQuery));
 
-const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
-navigation.append(
-    NavButton("previous", "button--prev", "button-prev", handlePrevButton),
-);
+navigation.append(NavButton("previous", "button--prev", handlePrevButton));
 navigation.append(NavPagination());
-navigation.append(
-    NavButton("next", "button--next", "button-next", handleNextButton),
-);
+navigation.append(NavButton("next", "button--next", handleNextButton));
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
@@ -29,15 +24,13 @@ let page = 1;
 let searchQuery = "";
 
 // Event handlers
-function handleNextButton(event) {
-    event.preventDefault();
+function handleNextButton() {
     if (page < maxPage) {
         page++;
         fetchCharacters();
     }
 }
-function handlePrevButton(event) {
-    event.preventDefault();
+function handlePrevButton() {
     if (page > 1) {
         page--;
         fetchCharacters();
@@ -45,8 +38,10 @@ function handlePrevButton(event) {
 }
 function handleQuery(event) {
     event.preventDefault();
-    const data = new FormData(searchBar);
-    searchQuery = data.get("query");
+    // OVER ENGINEERED
+    //const data = new FormData(event.target);
+    //searchQuery = data.get("query");
+    searchQuery = event.target.query.value;
     page = 1;
     fetchCharacters();
 }
@@ -54,6 +49,7 @@ function handleQuery(event) {
 // API fetch call
 export async function fetchCharacters() {
     try {
+        cardContainer.innerHTML = "";
         const response = await fetch(
             `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
         );
@@ -63,9 +59,9 @@ export async function fetchCharacters() {
         }
 
         const data = await response.json();
+        console.log(data.results);
         maxPage = data.info.pages;
         const characterArray = data.results;
-        cardContainer.innerHTML = "";
         characterArray.forEach((character) => {
             cardContainer.append(createCharacterCard(character));
         });
@@ -74,6 +70,7 @@ export async function fetchCharacters() {
 
         //return data;
     } catch (error) {
+        cardContainer.textContent = "No results";
         console.error("Fehler beim Abrufen der Daten:", error);
         throw error; // Fehler weiterreichen, falls die aufrufende Funktion ihn braucht
     }

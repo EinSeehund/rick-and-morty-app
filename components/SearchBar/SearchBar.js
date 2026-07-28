@@ -2,7 +2,6 @@ export function SearchBar(handleQuery) {
     const newForm = document.createElement("form");
     newForm.classList.add("search-bar");
     newForm.setAttribute("action", "");
-    newForm.setAttribute("data-js", "search-bar");
     newForm.innerHTML = `
           <input
             name="query"
