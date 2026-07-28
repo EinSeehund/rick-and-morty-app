@@ -1,11 +1,7 @@
-export function createPagination() {
-  const navElement = document.createElement("nav");
+export function NavPagination() {
+    const newSpan = document.createElement("span");
+    newSpan.classList.add("navigation__pagination");
+    newSpan.setAttribute("data-js", "pagination");
 
-  navElement.innerHTML = `
-    <button data-js="prev-button">Previous</button>
-    <span data-js="pagination"></span>
-    <button data-js="next-button">Next</button>
-  `;
-
-  return navElement;
+    return newSpan;
 }

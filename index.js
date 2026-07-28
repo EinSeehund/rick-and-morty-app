@@ -1,12 +1,24 @@
 import { createCharacterCard } from "./components/CharacterCard/CharacterCard.js";
-import { createPagination } from "./components/NavPagination/NavPagination.js";
+import { NavPagination } from "./components/NavPagination/NavPagination.js";
+import { NavButton } from "./components/NavButton/NavButton.js";
+import { SearchBar } from "./components/SearchBar/SearchBar.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
     '[data-js="search-bar-container"]',
 );
+
+searchBarContainer.append(SearchBar(handleQuery));
+
 const searchBar = document.querySelector('[data-js="search-bar"]');
 const navigation = document.querySelector('[data-js="navigation"]');
+navigation.append(
+    NavButton("previous", "button--prev", "button-prev", handlePrevButton),
+);
+navigation.append(NavPagination());
+navigation.append(
+    NavButton("next", "button--next", "button-next", handleNextButton),
+);
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
@@ -16,32 +28,31 @@ let maxPage = 1;
 let page = 1;
 let searchQuery = "";
 
-prevButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (page > 1) {
-        page--;
-        fetchCharacters();
-    }
-});
-
-nextButton.addEventListener("click", (event) => {
+// Event handlers
+function handleNextButton(event) {
     event.preventDefault();
     if (page < maxPage) {
         page++;
         fetchCharacters();
     }
-});
-
-searchBar.addEventListener("submit", (event) => {
+}
+function handlePrevButton(event) {
+    event.preventDefault();
+    if (page > 1) {
+        page--;
+        fetchCharacters();
+    }
+}
+function handleQuery(event) {
     event.preventDefault();
     const data = new FormData(searchBar);
     searchQuery = data.get("query");
     page = 1;
     fetchCharacters();
-});
+}
 
 // API fetch call
-async function fetchCharacters() {
+export async function fetchCharacters() {
     try {
         const response = await fetch(
             `https://rickandmortyapi.com/api/character?page=${page}&name=${searchQuery}`,
